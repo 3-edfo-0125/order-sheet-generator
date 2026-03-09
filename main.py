@@ -22,9 +22,13 @@ ROW_SPACING = 11 # セル間隔(縦)
 COL_SPACING = 4 # セル間隔(横)
 ITEM_TYPE_COUNT = 6 # ピックする商品番号の数
 
-with open(BASE_DIR / "product.csv", mode="r", encoding="utf_8") as f:
-    reader = csv.reader(f)
-    lst = list(reader)
+try:
+    with open(BASE_DIR / "product.csv", mode="r", encoding="utf_8") as f:
+        reader = csv.reader(f)
+        lst = list(reader)
+except FileNotFoundError:
+    messagebox.showwarning("エラー", "商品データ(product.csv)が見つかりません")
+    sys.exit()
 
 for i in range(len(lst)):
     lst[i][1] = int(lst[i][1])
@@ -78,3 +82,4 @@ for sheet in range(CARD_QTY):
         stock[order[i]] -= quantities[i]
 
 wb.save(BASE_DIR / "order_sheet.xlsx")
+
