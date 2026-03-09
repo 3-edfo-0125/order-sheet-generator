@@ -48,8 +48,12 @@ for i in range(CARD_QTY):
     c_list.append([row, col])
 
 # 出力テンプレート呼び出し
-wb = openpyxl.load_workbook(BASE_DIR / "order_sheet_template.xlsx")
-ws = wb.worksheets[0]
+try:
+    wb = openpyxl.load_workbook(BASE_DIR / "order_sheet_template.xlsx")
+    ws = wb.worksheets[0]
+except FileNotFoundError:
+    messagebox.showwarning("エラー", "テンプレート(order_sheet_template.xlsx)が見つかりません")
+    sys.exit()
 
 # 24回繰り返し
 for sheet in range(CARD_QTY):
@@ -82,4 +86,5 @@ for sheet in range(CARD_QTY):
         stock[order[i]] -= quantities[i]
 
 wb.save(BASE_DIR / "order_sheet.xlsx")
+
 
