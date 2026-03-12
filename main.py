@@ -3,6 +3,7 @@ import random
 from pathlib import Path
 import openpyxl
 from tkinter import messagebox
+import sys
 
 BASE_DIR = Path(__file__).resolve().parent
 
@@ -87,6 +88,7 @@ for sheet in range(CARD_QTY):
         stock[order[i]] -= quantities[i]
 
 wb.save(BASE_DIR / "order_sheet.xlsx")
+
 
 
 
